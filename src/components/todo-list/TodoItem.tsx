@@ -3,8 +3,8 @@ import {styled} from "styled-components";
 import {FlexCenterBox} from "../../common/FlexCenterBox";
 import {FaCheck} from "react-icons/fa6";
 import {FaXmark} from "react-icons/fa6";
-import {useTodoValue} from "../../context/TodoContext";
-import {useTodoAction} from "../../context/TodoContext";
+import {useAppDispatch} from "../../hooks";
+import {remove, complete} from "../../slice/TodoSlice";
 
 const StyledTodoItem = styled.div`
     width: 440px;
@@ -66,8 +66,8 @@ const RemoveCheckBox = styled.div`
     cursor: pointer;
     background-color: #414654;
     user-select: none;
-    -webkit-user-select: none; 
-    -moz-user-select: none; 
+    -webkit-user-select: none;
+    -moz-user-select: none;
     -ms-user-select: none;
 
 
@@ -91,7 +91,16 @@ interface statusProps {
 }
 
 const TodoItem = ({content, color, status, id}: props) => {
-    const {action} = useTodoAction();
+
+    const dispatch = useAppDispatch();
+
+    const handleRemove = (id: number) => {
+        dispatch(remove(id));
+    };
+
+    const handleComplete = (id: number) => {
+        dispatch(complete(id))
+    }
 
 
     return (
@@ -99,9 +108,9 @@ const TodoItem = ({content, color, status, id}: props) => {
             <ColorBox $color={color}/>
             <TextBox $status={status}>{content}</TextBox>
             <CheckBoxWrap>
-                <CompleteCheckBox onClick={() => action.complete(id)}
+                <CompleteCheckBox onClick={() => handleComplete(id)}
                                   $status={status}><FaCheck/></CompleteCheckBox>
-                <RemoveCheckBox onClick={() => action.remove(id)}><FaXmark/></RemoveCheckBox>
+                <RemoveCheckBox onClick={() => handleRemove(id)}><FaXmark/></RemoveCheckBox>
             </CheckBoxWrap>
         </StyledTodoItem>
     );

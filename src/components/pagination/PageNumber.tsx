@@ -1,7 +1,8 @@
 import React from 'react';
 import {styled} from "styled-components";
 import {FlexCenterBox} from "../../common/FlexCenterBox";
-import {useTodoAction} from "../../context/TodoContext"
+import {useAppDispatch} from "../../hooks";
+import {paginate} from "../../slice/TodoSlice";
 
 const StyledPageNumber = styled.div`
     height: 24px;
@@ -21,9 +22,14 @@ interface PageNumberProps {
 
 const PageNumber = ({numberValue}: PageNumberProps) => {
 
-    const {action} = useTodoAction();
+    const dispatch = useAppDispatch();
+
+    const handlePaginate = (pageNumber: number) => {
+        dispatch(paginate(pageNumber))
+    }
+
     return (
-        <StyledPageNumber onClick={() => action.paginate(numberValue)}>
+        <StyledPageNumber onClick={() => handlePaginate(numberValue)}>
             {numberValue}
         </StyledPageNumber>
     );

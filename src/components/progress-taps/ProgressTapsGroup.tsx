@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
 import {styled} from "styled-components";
 import {FlexCenterBox} from "../../common/FlexCenterBox";
 import ProgressTapsButton from "./ProgressTapsButton";
-import {useTodoAction} from "../../context/TodoContext";
+import {useAppSelector, useAppDispatch} from "../../hooks";
+import {setFilterStatus} from '../../slice/TodoSlice'
 
 const StyledProgressTapsGroup = styled.div`
     width: 480px;
@@ -11,32 +11,21 @@ const StyledProgressTapsGroup = styled.div`
     ${FlexCenterBox}
 `;
 
-const initialValue = [
-    {name: "전체", isSelected: true},
-    {name: "진행중", isSelected: false},
-    {name: "완료", isSelected: false}
-]
 
 const ProgressTapsGroup = () => {
-    const [progress, setProgress] = useState(initialValue);
-    const {action} = useTodoAction();
 
-    const clickHandler = (outIndex: number, name: string) => {
-        const newProgress = progress.map((state, innerIndex: number) => {
-            if (outIndex === innerIndex) {
-                return {...state, isSelected: true}
-            }
-            return {...state, isSelected: false}
-        });
-        setProgress(newProgress);
-        action.progressChange(name)
+    const filterStatus = useAppSelector((state) => state.todos.filterStatus)
+    const dispatch = useAppDispatch()
+
+    const handleFilterChange = (filter: string) => {
+        dispatch(setFilterStatus(filter))
     };
 
     return (
         <StyledProgressTapsGroup>
-            {progress.map((value, index: number) => (
+            {filterStatus.map((value, index: number) => (
                 <ProgressTapsButton key={index}
-                                    onClick={() => clickHandler(index, value.name)}
+                                    onClick={() => handleFilterChange(value.name)}
                                     name={value.name}
                                     isSelected={value.isSelected}
                 />
