@@ -1,26 +1,16 @@
 import React from 'react';
-import {styled} from "styled-components";
-import {FlexCenterBox} from "../../common/FlexCenterBox";
+
 import {useAppDispatch} from "../../hooks";
 import {paginate} from "../../slice/TodoSlice";
 
-const StyledPageNumber = styled.div`
-    height: 24px;
-    width: 24px;
-    background-color: #56647b;
-    color: #ffffff;
-    cursor: pointer;
-    border-radius: 10px;
-    font-size: 14px;
-
-    ${FlexCenterBox};
-`;
+import * as S from './PageNumber.style'
 
 interface PageNumberProps {
     numberValue: number
+    currentPage: boolean
 }
 
-const PageNumber = ({numberValue}: PageNumberProps) => {
+const PageNumber = ({currentPage, numberValue}: PageNumberProps) => {
 
     const dispatch = useAppDispatch();
 
@@ -29,9 +19,9 @@ const PageNumber = ({numberValue}: PageNumberProps) => {
     }
 
     return (
-        <StyledPageNumber onClick={() => handlePaginate(numberValue)}>
+        <S.Wrapper $currentPage={currentPage} onClick={() => handlePaginate(numberValue)}>
             {numberValue}
-        </StyledPageNumber>
+        </S.Wrapper>
     );
 };
 

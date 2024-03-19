@@ -1,19 +1,9 @@
 import React from 'react';
-import {styled} from "styled-components";
-import {FlexCenterBox} from "../../common/FlexCenterBox";
 import PageNumber from "./PageNumber";
 import {useAppSelector} from "../../hooks";
+import * as S from './PaginationContainer.style'
 
-const StyledPagination = styled.div`
-    width: 480px;
-    height: 40px;
-    background-color: #292e3b;
-    border-radius: 10px;
-    ${FlexCenterBox};
-    gap: 12px;
-`;
-
-const Pagination = () => {
+const PaginationContainer = () => {
 
     const todoList = useAppSelector((state) => state.todos.todoList)
     const currentPage = useAppSelector((state) => state.todos.currentPage)
@@ -47,16 +37,15 @@ const Pagination = () => {
 
     startPage = Math.max(startPage, 1);
 
-    const pageNumbers = Array.from({length: (endPage - startPage + 1)}, (_, idx) => startPage + idx);
-
+    const pageNumbers = Array.from({length: (endPage - startPage + 1)}, (_, idx) => startPage + idx).map((value: number, index: number) => {
+        return <PageNumber currentPage={value === currentPage} numberValue={value} key={index}/>
+    });
 
     return (
-        <StyledPagination>
-            {pageNumbers.map((value: number, index: number) => {
-                return <PageNumber numberValue={value} key={index}/>
-            })}
-        </StyledPagination>
+        <S.Wrapper>
+            {pageNumbers}
+        </S.Wrapper>
     );
 };
 
-export default Pagination;
+export default PaginationContainer;

@@ -1,22 +1,11 @@
 import React from 'react';
-import {styled} from "styled-components";
-import {FlexCenterBox} from "../../common/FlexCenterBox";
-
-const StyledHeader = styled.div`
-    width: 480px;
-    height: 60px;
-    background-color: #292e3b;
-    border-radius: 10px;
-    color: #ffffff;
-    font-size: 30px;
-    ${FlexCenterBox}
-`;
+import * as S from './Header.style'
 
 const Header = () => {
     return (
-        <StyledHeader>
+        <S.Wrapper>
             TODO
-        </StyledHeader>
+        </S.Wrapper>
     );
 };
 

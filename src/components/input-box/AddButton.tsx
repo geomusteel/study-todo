@@ -1,29 +1,15 @@
 import React from 'react';
-import {styled} from "styled-components";
-import {FlexCenterBox} from "../../common/FlexCenterBox";
+import * as S from './AddButton.style'
 
-const StyledAddButton = styled.button`
-    width: 100px;
-    height: 46px;
-    ${FlexCenterBox};
-    background-color: #ff4d4d;
-    z-index: 10;
-    position: absolute;
-    left: 360px;
-    top: 32px;
-    border-radius: 30px;
-    font-size: 24px;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-`;
+interface props {
+    onClick: () => void
+}
 
-
-const AddButton = () => {
+const AddButton = ({onClick}: props) => {
     return (
-        <StyledAddButton>
+        <S.Wrapper onClick={onClick}>
             ADD
-        </StyledAddButton>
+        </S.Wrapper>
     );
 };
 

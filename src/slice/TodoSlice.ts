@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import initialData from '../data/initialData';
+import {getCurrentDateTime} from "../utility/CurrentDateTime";
 
 interface Todo {
     id: number;
@@ -20,16 +21,18 @@ interface TodoState {
     todoList: Todo[];
     filterStatus: FilterStatus[];
     currentPage: number;
+    sequence: number;
 }
 
 const initialState: TodoState = {
     todoList: initialData,
     filterStatus: [
-        {name: "전체", isSelected: true},
-        {name: "진행중", isSelected: false},
+        {name: "전체", isSelected: false},
+        {name: "진행중", isSelected: true},
         {name: "완료", isSelected: false}
     ],
-    currentPage: 1
+    currentPage: 1,
+    sequence: 21,
 };
 
 export const todoSlice = createSlice({
@@ -39,7 +42,9 @@ export const todoSlice = createSlice({
         complete: (state, action: PayloadAction<number>) => {
             state.todoList = state.todoList.map((todoItem: Todo) => {
                 if (todoItem.id === action.payload) {
-                    return {...todoItem, status: !todoItem.status};
+                    const newStatus = !todoItem.status;
+                    const completedTime = newStatus ? '' : getCurrentDateTime();
+                    return {...todoItem, status: newStatus, completedTime: completedTime};
                 }
                 return todoItem;
             })
@@ -56,7 +61,21 @@ export const todoSlice = createSlice({
         },
         paginate: (state, action: PayloadAction<number>) => {
             state.currentPage = action.payload
-        }
+        },
+        sequenceUpdate: (state) => {
+            state.sequence = state.sequence + 1
+        },
+        addTodo: (state, action: PayloadAction<Todo>) => {
+            state.todoList.unshift(action.payload);
+        },
+        updateTodo: (state, action: PayloadAction<Todo>) => {
+            state.todoList = state.todoList.map(todo => {
+                if (todo.id === action.payload.id) {
+                    return {...action.payload};
+                }
+                return todo;
+            });
+        },
 
     }
 })
@@ -65,7 +84,10 @@ export const {
     remove,
     setFilterStatus,
     complete,
-    paginate
+    paginate,
+    sequenceUpdate,
+    addTodo,
+    updateTodo
 } = todoSlice.actions
 
 export default todoSlice.reducer

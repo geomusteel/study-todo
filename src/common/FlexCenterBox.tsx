@@ -1,6 +1,6 @@
-import {css} from "styled-components";
+import {styled} from "styled-components";
 
-export const FlexCenterBox = css`
+export const FlexCenterBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,19 +1,18 @@
 import React from 'react';
 import {styled} from "styled-components";
 import {FlexCenterBox} from "../common/FlexCenterBox";
-import InputGroup from "../components/input-box/InputGroup";
+import InputContainer from "../components/input-box/InputContainer";
 import Header from "../components/header/Header";
-import ProgressTapsGroup from "../components/progress-taps/ProgressTapsGroup";
-import Pagination from "../components/pagination/Pagination";
-import TodoList from "../components/todo-list/TodoList";
+import ProgressContainer from "../components/progress/ProgressContainer";
+import PaginationContainer from "../components/pagination/PaginationContainer";
+import TodoListContainer from "../components/todo-list/TodoListContainer";
 
 
-const StyledInputGroup = styled.div`
+const StyledInputGroup = styled(FlexCenterBox)`
     width: 660px;
     height: 1000px;
-    ${FlexCenterBox};
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 `;
 
 const MainPage = () => {
@@ -21,10 +20,10 @@ const MainPage = () => {
 
         <StyledInputGroup>
             <Header/>
-            <InputGroup/>
-            <ProgressTapsGroup/>
-            <Pagination/>
-            <TodoList/>
+            <InputContainer/>
+            <ProgressContainer/>
+            <PaginationContainer/>
+            <TodoListContainer/>
         </StyledInputGroup>
     );
 };
