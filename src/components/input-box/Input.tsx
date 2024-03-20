@@ -10,7 +10,7 @@ const Input = ({inputValue, onChange}: props) => {
 
     return (
         <S.Wrapper>
-            <S.StyledTodoInput value={inputValue} onChange={onChange}/>
+            <S.StyledTodoInput spellCheck={false} value={inputValue} onChange={onChange}/>
         </S.Wrapper>
 
     );

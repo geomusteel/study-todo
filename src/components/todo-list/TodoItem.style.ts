@@ -1,5 +1,6 @@
 import {styled} from "styled-components";
 import {FlexCenterBox} from "../../common/FlexCenterBox";
+import React from "react";
 
 export const Wrapper = styled.div<{ $select?: boolean }>`
     width: 440px;
@@ -10,7 +11,13 @@ export const Wrapper = styled.div<{ $select?: boolean }>`
     justify-content: space-between;
     align-items: center;
     position: relative;
-    border: ${(props) => (props.$select ? "2px solid #49576d" : "none")};
+    border: ${(props) => (props.$select ? "2px solid #49576d" : "2px solid transparent")};
+
+    &:hover {
+        border: ${(props) => (props.$select ? "2px solid #49576d" : "2px solid #49576d")};
+    }
+    transition: all 0.1s ease;
+
 `;
 
 export const CheckBoxContainer = styled.div`
@@ -52,6 +59,8 @@ export const TextInputBox = styled.input<{
         outline: none;
         border: 2px solid black;
     }
+
+
 `;
 
 export const TextBox = styled.div<{ $status: boolean }>`
@@ -61,9 +70,14 @@ export const TextBox = styled.div<{ $status: boolean }>`
     display: flex;
     align-items: center;
     font-size: 20px;
+    border-radius: 10px;
     color: ${(props) => (props.$status ? "#ffffff" : "#414654")};
     text-decoration: ${(props) => (props.$status ? "none" : "line-through")};
     cursor: pointer;
+
+    &:hover {
+        background-color: #292e3b;
+    }
 `;
 
 export const CompleteBox = styled(FlexCenterBox)<{ $status: boolean }>`

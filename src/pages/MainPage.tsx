@@ -22,8 +22,8 @@ const MainPage = () => {
             <Header/>
             <InputContainer/>
             <ProgressContainer/>
-            <PaginationContainer/>
             <TodoListContainer/>
+            <PaginationContainer/>
         </StyledInputGroup>
     );
 };

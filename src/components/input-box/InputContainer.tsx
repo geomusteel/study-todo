@@ -35,8 +35,11 @@ const InputContainer = () => {
     const sequence = useAppSelector(state => state.todos.sequence);
     const dispatch = useAppDispatch()
 
-    const handleInputChange = (event: any) => {
-        const newValue = {...inputValue, content: event.target.value}
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = {...inputValue, content: e.target.value}
+        if (newValue.content.length >= 14) {
+            return;
+        }
         setInputValue(newValue)
     }
 
@@ -50,6 +53,9 @@ const InputContainer = () => {
     }
 
     const handleAddInput = () => {
+        if (inputValue.content.trim().length === 0) {
+            return;
+        }
         const currentDateTime = getCurrentDateTime();
         const completeValue = {...inputValue, id: sequence, createdTime: currentDateTime};
         dispatch(addTodo(completeValue))
@@ -57,8 +63,6 @@ const InputContainer = () => {
         console.log(completeValue)
         setInputValue(initialData)
     }
-
-
 
 
     return (

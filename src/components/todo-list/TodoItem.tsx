@@ -35,7 +35,7 @@ const TodoItem = ({todo, onClick}: props) => {
 
         const [tempTodo, setTempTodo] = useState<Todo>(todo);
 
-        const {colorList , handleColor} = useColor();
+        const {colorList, handleColor} = useColor();
 
         useEffect(() => {
             handleFindColor()
@@ -69,15 +69,19 @@ const TodoItem = ({todo, onClick}: props) => {
             e.preventDefault();
             e.stopPropagation();
 
-            const findColorItem = colorList.find((item) => item.isSelected );
+            const findColorItem = colorList.find((item) => item.isSelected);
             const findColor: string = findColorItem ? findColorItem.color : "red";
-            const updateTodoItem: Todo = {...tempTodo, selected : false,color: findColor}
+            const updateTodoItem: Todo = {...tempTodo, selected: false, color: findColor}
 
             dispatch(updateTodo(updateTodoItem))
         }
 
         const handleText = (e: React.ChangeEvent<HTMLInputElement>) => {
-            setTempTodo({...tempTodo, content: e.target.value})
+            const newValue = {...tempTodo, content: e.target.value}
+            if (newValue.content.length >= 14) {
+                return;
+            }
+            setTempTodo(newValue)
         }
 
 
@@ -108,7 +112,8 @@ const TodoItem = ({todo, onClick}: props) => {
                     <S.Wrapper $select={todo.selected}>
                         <S.ColorSelectContainer>{colorListSelect}</S.ColorSelectContainer>
                         <S.ColorBox $color={findColor?.color}/>
-                        <S.TextInputBox autoFocus={true}
+                        <S.TextInputBox spellCheck={false}
+                                        autoFocus={true}
                                         $status={tempTodo.status}
                                         value={tempTodo.content}
                                         onChange={handleText}
