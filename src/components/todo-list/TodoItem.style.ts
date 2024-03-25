@@ -1,6 +1,16 @@
-import {styled} from "styled-components";
+import {styled, keyframes } from "styled-components";
 import {FlexCenterBox} from "../../common/FlexCenterBox";
 import React from "react";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 
 export const Wrapper = styled.div<{ $select?: boolean }>`
     width: 440px;
@@ -136,6 +146,8 @@ export const ColorSelectContainer = styled(FlexCenterBox)`
     top: 5px;
     border-radius: 50px;
     gap: 3px;
+
+    animation: ${fadeIn} 0.4s forwards;
 `;
 
 export const ColorSelectBox = styled(FlexCenterBox)`
@@ -167,6 +179,9 @@ export const DateContainer = styled.div`
     left: 20px;
     height: 20px;
     width: 400px;
+
+    animation: ${fadeIn} 0.4s forwards;
+    
 `;
 
 export const DateText = styled.div`
